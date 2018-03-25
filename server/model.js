@@ -10,5 +10,5 @@ exports.block = async ctx => {
   );
   venusCoin.minePendingTransactions("james-address");
 
-  console.log("sum", venusCoin.getBallenceAddress("address2"));
+  console.log("sum", venusCoin.getBallenceAddress("address1"));
 };
