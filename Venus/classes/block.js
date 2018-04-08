@@ -26,5 +26,6 @@ module.exports = class Block {
       this.hash = this.calculateHash();
     }
     console.log("block mined : ", this.hash);
+    return this.hash;
   }
 };

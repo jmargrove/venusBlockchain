@@ -4,7 +4,7 @@ const Transaction = require("./transaction.js");
 module.exports = class Blockchain {
   constructor() {
     this.chain = [this.createGenesisBlock()];
-    this.difficulty = 2;
+    this.difficulty = 5;
     this.pendingTransactions = [];
     this.miningReward = 100;
   }
@@ -19,15 +19,16 @@ module.exports = class Blockchain {
 
   minePendingTransactions(miningRewardAddress) {
     let block = new Block(Date.now(), this.pendingTransactions);
-    block.mineBlock(this.difficulty);
+    const hash = block.mineBlock(this.difficulty);
     console.log("Block successfully mined!");
     this.chain.push(block);
     this.pendingTransactions = [
       new Transaction(null, miningRewardAddress, this.miningReward)
     ];
+    return hash;
   }
 
-  creatTransaction(transaction) {
+  createTransaction(transaction) {
     this.pendingTransactions.push(transaction);
   }
 
@@ -35,7 +36,7 @@ module.exports = class Blockchain {
     let ballence = 0;
     for (const block of this.chain) {
       for (const trans of block.transactions) {
-        if (trans.fromAdress === address) {
+        if (trans.fromAddress === address) {
           ballence -= trans.amount;
         }
         if (trans.toAddress === address) {
